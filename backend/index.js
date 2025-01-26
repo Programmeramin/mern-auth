@@ -9,18 +9,19 @@ dotenv.config();
 
 // init app
 const app = express();
+const PORT = process.env.PORT || 5050
 
-app.get("/",(req, res) =>{
-    res.send("Hello world!")
-    
-});
+// Set Up Middlewares
+app.use(express.json()); // allows us to parse incoming requests with JSON payloads
+app.use(express.urlencoded({extended : false}))
+
 
 // routing
 app.use("/api/auth", authRoutes);
 
 // listen server
-app.listen(3000, () =>{
+app.listen(PORT, () =>{
     connectDB();
-    console.log("Server is running on port 3000".bgGreen.white);
+    console.log(`Server is running on port ${PORT}`.bgGreen.white);
     
-})
+}) 
